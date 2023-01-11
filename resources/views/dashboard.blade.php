@@ -1,227 +1,152 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('master')
 
-        <title>@yield('title')</title>
+@section('title')
+    Dashboard
+@endsection
 
-         <!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
-        <link href="{{ URL::asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ URL::asset('assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ URL::asset('plugins/perfect-scrollbar/perfect-scrollbar.css') }}" rel="stylesheet" type="text/css" />
-        <!-- END GLOBAL MANDATORY STYLES -->
+@section('customcss')
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/table/datatable/datatables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/table/datatable/dt-global_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/forms/theme-checkbox-radio.css') }}">
+    <link href="{{ URL::asset('assets/css/apps/invoice-list.css') }}" rel="stylesheet" type="text/css" />
+@endsection
 
-        <!--  BEGIN CUSTOM STYLE FILE  -->
-        <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/table/datatable/datatables.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/table/datatable/dt-global_style.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/forms/theme-checkbox-radio.css') }}">
-        <link href="{{ URL::asset('assets/css/apps/invoice-list.css') }}" rel="stylesheet" type="text/css" />
-        <!--  END CUSTOM STYLE FILE  -->
-        @yield('customcss')
-    </head>
-    <body class="antialiased">
-        
-    <!--  BEGIN NAVBAR  -->
-    <div class="header-container">
-        <header class="header navbar navbar-expand-sm">
+@section('customjs')
+<script src={{ URL::asset('assets/js/scrollspyNav.js')}}></script>
+<script src={{ URL::asset('plugins/apex/apexcharts.min.js')}}></script>
+<script src={{ URL::asset('plugins/apex/custom-apexcharts.js')}}></script>
+<script src={{ URL::asset('plugins/table/datatable/datatables.js')}}></script>
+<script>        
+    $('#default-ordering').DataTable( {
+        "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
+    "<'table-responsive'tr>" +
+    "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+        "oLanguage": {
+            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+            "sInfo": "Showing page _PAGE_ of _PAGES_",
+            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+            "sSearchPlaceholder": "Search...",
+           "sLengthMenu": "Results :  _MENU_",
+        },
+        "order": [[ 3, "desc" ]],
+        "stripeClasses": [],
+        "lengthMenu": [7, 10, 20, 50],
+        "pageLength": 7,
+        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
+    } );
+</script>
+@endsection
 
-            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>
-
-            <div class="nav-logo align-self-center">
-                <a class="navbar-brand" href="/dashboard"><span class="navbar-brand-name">WebHade Creative</span></a>
-            </div>
-
-            <ul class="navbar-item flex-row mr-auto">
+@section('main')
+<div class="layout-px-spacing">
+    <div class="page-header">
+        <nav class="breadcrumb-one" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row layout-top-spacing">
+        <div class="widget-content widget-content-area br-6">
+            <table id="default-ordering" class="table table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>NIS</th>
+                        <th>Waktu Presensi Masuk</th>
+                        <th>Waktu Presensi Keluar</th>
+                        <th class="text-center dt-no-sorting">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Muhammad Favian Jiwani</td>
+                        <td>2021118620</td>
+                        <td>06:58:10</td>
+                        <td>15:00:01</td>
+                        <td class="text-center"><button class="btn btn-primary">Hadir</button> </td>
+                    </tr>
+                </tbody>
                 
-            </ul>
-
-            <ul class="navbar-item flex-row nav-dropdowns">
-
-                <li class="nav-item dropdown user-profile-dropdown order-lg-0 order-1">
-                    <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="user-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="media">
-                            <div class="media-body align-self-center">
-                                <h6>Name</h6>
-                                <p>Admin</p>
-                            </div>
-                            <img src="{{ URL::asset('assets/img/person.png') }}" class="img-fluid" alt="admin-profile">
-                            <span class="badge badge-success"></span>
-                        </div>
-                    </a>
-                    <div class="dropdown-menu position-absolute p-0" aria-labelledby="userProfileDropdown">
-                        <div class="dropdown-item p-1">
-                            
+            </table>
+        </div>
+            <div id="chartRadial" class="col-xl-4 layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">                                
+                        <h4>Presentase Kehadiran Siswa</h4>
+                    </div>
+                    <div class="widget-content widget-content-area">
+                        <div id="radial-chart" class=""></div>
+                    </div>
+                </div>
+            
+                <div class="statbox widget box box-shadow mt-2">
+                    <div class="widget-header">                                
+                        <h4>Pengajuan Izin</h4>
+                    </div>
+                    <div class="widget-content widget-content-area">
+                        <div class="table-responsive">
+                            <table class="table table-scroll">
+                                <thead>
+                                    <tr>
+                                        <th><div class="th-content">Tanggal</div></th>
+                                        <th><div class="th-content th-heading">Nama</div></th>
+                                        <th><div class="th-content th-heading">Alasan</div></th>
+                                        <th><div class="th-content">Aksi</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><div class="td-content"><span class="pricing">10 Jan 2022</span></div></td>
+                                        <td><div class="td-content"><span class="pricing">Fairuztsani Kemal Setiawan</span></div></td>
+                                        <td><div class="td-content"><span class="discount-pricing">Sakit</span></div></td>
+                                        <td>
+                                            <div class="row">
+                                                <button class="btn btn-success mr-3">Setuju</button> 
+                                                <button class="btn btn-danger">Tolak</button> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="td-content"><span class="pricing">10 Jan 2022</span></div></td>
+                                        <td><div class="td-content"><span class="pricing">Fairuztsani Kemal Setiawan</span></div></td>
+                                        <td><div class="td-content"><span class="discount-pricing">Sakit</span></div></td>
+                                        <td>
+                                            <div class="row">
+                                                <button class="btn btn-success mr-3">Setuju</button> 
+                                                <button class="btn btn-danger">Tolak</button> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="td-content"><span class="pricing">10 Jan 2022</span></div></td>
+                                        <td><div class="td-content"><span class="pricing">Fairuztsani Kemal Setiawan</span></div></td>
+                                        <td><div class="td-content"><span class="discount-pricing">Sakit</span></div></td>
+                                        <td>
+                                            <div class="row">
+                                                <button class="btn btn-success mr-3">Setuju</button> 
+                                                <button class="btn btn-danger">Tolak</button> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="td-content"><span class="pricing">10 Jan 2022</span></div></td>
+                                        <td><div class="td-content"><span class="pricing">Fairuztsani Kemal Setiawan</span></div></td>
+                                        <td><div class="td-content"><span class="discount-pricing">Sakit</span></div></td>
+                                        <td>
+                                            <div class="row">
+                                                <button class="btn btn-success mr-3">Setuju</button> 
+                                                <button class="btn btn-danger">Tolak</button> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </li>
-            </ul>
-        </header>
-    </div>
-    <!--  END NAVBAR  -->
-
-    <!--  BEGIN MAIN CONTAINER  -->
-    <div class="main-container" id="container">
-
-        <div class="overlay"></div>
-        <div class="search-overlay"></div>
-
-        <!--  BEGIN TOPBAR  -->
-        <div class="topbar-nav header navbar" role="banner">
-            <nav id="topbar">
-            
-                <ul class="list-unstyled menu-categories" id="topAccordion">
-
-                    <li class="menu single-menu">
-                        <a href="{{ URL('/dashboard') }}">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                                <span>Dashboard</span>
-                            </div>
-                        </a>
-                    </li>
-                    @can('view_myproject')
-                    <li class="menu single-menu">
-                        <a href="{{ URL('/myproject') }}">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                                <span>My Project</span>
-                            </div>
-                        </a>
-                    </li>
-                    @endcan
-                    @can('view_project')
-                    <li class="menu single-menu">
-                        <a href="{{ URL('/project') }}">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                                <span>Project</span>
-                            </div>
-                        </a>
-                    </li>
-                    @endcan
-                    @can('view_client')
-                    <li class="menu single-menu">
-                        <a href="{{ URL('/client') }}">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                <span>Client</span>
-                            </div>
-                        </a>
-                    </li>
-                    @endcan
-                    @can('view_document')
-                    <li class="menu single-menu">
-                        <a href="{{ URL('/document') }}">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>
-                                <span>Dokumen</span>
-                            </div>
-                        </a>
-                    </li>
-                    @endcan
-                    @can('view_users')
-                    <li class="menu single-menu">
-                        <a href="javascript:void(0);" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                                <span>Users</span>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </a>
-                        <ul class="collapse submenu list-unstyled" id="more" data-parent="#topAccordion">
-                            @can('view_users_team')
-                        
-                            @endcan
-                        </ul>
-                    </li>
-                    @endcan
-                    @can('view_payment')
-                    <li class="menu single-menu">
-                        <a href="" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                                <span>Payment</span>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </a>
-                        <ul class="collapse submenu list-unstyled" id="more" data-parent="#topAccordion">
-                            @can('view_payment_payment')
-                           
-                            @endcan
-                        </ul>
-                    </li>
-                    @endcan
-
-                    <li class="menu single-menu">
-                        <a href="" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
-                                    <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
-                                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
-                                </svg>
-                                <span>Performance</span>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </a>
-                        <ul class="collapse submenu list-unstyled" id="more" data-parent="#topAccordion">
-                            <li>
-                                <a href="{{ url('/performance/category') }}"> Category</a>
-                            </li>
-                            <li>
-                                <a href="{{ url('/performance/task') }}"> Task </a>
-                            </li>
-                            <li>
-                                <a href=""> Fee </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="menu single-menu">
-                        <a href="javascript:void(0);" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <div class="dropdown-toggle">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                                <span>Pengaturan</span>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </a>
-                        <ul class="collapse submenu list-unstyled" id="more" data-parent="#topAccordion">
-                            <li>
-                                <a href="{{ url('/calendar') }}">Calendar</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <!--  END TOPBAR  -->
-
-        {{-- main section from other page --}}
-        <div class="main-container" id="container">
-            <div id="content" class="main-content">
-                @yield('main')
+                </div>
             </div>
         </div>
+</div>
+@endsection
 
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="{{ URL::asset('assets/js/libs/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ URL::asset('bootstrap/js/popper.min.js') }}"></script>
-    <script src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ URL::asset('plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-    <script src="{{ URL::asset('plugins/blockui/jquery.blockUI.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/app.js') }}"></script>
-    
-    <script>
-        $(document).ready(function() {
-            App.init();
-        });
-    </script>
-    <script src="{{ URL::asset('plugins/highlight/highlight.pack.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/custom.js') }}"></script>
-    <!-- END GLOBAL MANDATORY SCRIPTS --> 
-
-    @yield('customjs')
-
-</body>
-</html>
