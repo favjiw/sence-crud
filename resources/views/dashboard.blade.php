@@ -59,13 +59,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($value as $val)
                     <tr>
-                        <td>Muhammad Favian Jiwani</td>
-                        <td>2021118620</td>
+                        <td>{{ $val["name"] }}</td>
+                        <td>{{ $val["id"] }}</td>
                         <td>06:58:10</td>
                         <td>15:00:01</td>
                         <td class="text-center"><button class="btn btn-primary">Hadir</button> </td>
                     </tr>
+                    @endforeach
                 </tbody>
                 
             </table>

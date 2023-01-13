@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FirebaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
+Route::get('/', [FirebaseController::class, 'retrieve']);
+Route::get("/dasboard", [FirebaseController::class, 'dashboard']);
 Route::get('/student', function () {
     return view('student.index');
 });
+Route::get("/student", [FirebaseController::class, 'studentHandler']);
