@@ -78,11 +78,7 @@ class FirebaseController extends Controller
     }
 
     public function loginHandler(Request $request) {
-        $user = $this->database
-            ->getReference("/teacher")
-            ->orderByChild("id")
-            ->equalTo((int) $request->username)
-            ->getSnapshot()->getValue();
+        $user = $this->singularSelection("teacher", "id", (int) $request->username);
 
         if(count($user) == 1) {
             $key = array_keys($user)[0];
