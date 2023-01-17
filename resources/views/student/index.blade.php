@@ -7,7 +7,6 @@
 @section('customcss')
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/table/datatable/datatables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/table/datatable/dt-global_style.css') }}">
-    <script src="https://kit.fontawesome.com/2b7eddacef.js" crossorigin="anonymous"></script>
 @endsection
 
 @section('customjs')
