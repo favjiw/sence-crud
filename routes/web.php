@@ -22,6 +22,8 @@ Route::post("/login", [FirebaseController::class, "loginHandler"])->name("login.
 Route::group(['middleware' => "customauth"], function () {
     Route::get('/', [FirebaseController::class, 'retrieve'])->name("dashboard");
     Route::get("/student", [FirebaseController::class, 'studentHandler']);
+
+    Route::post("/out", [FirebaseController::class, 'out'])->name("out");
 });
 
 require __DIR__.'/auth.php';

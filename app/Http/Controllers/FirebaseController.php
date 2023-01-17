@@ -7,6 +7,7 @@ use Kreait\Firebase\Contract\Database;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\Models\Student;
 
 class FirebaseController extends Controller
@@ -91,4 +92,9 @@ class FirebaseController extends Controller
             }
         }
     }
+
+    public function out() {
+        session()->flush();
+        return redirect("/login");
+    } 
 }

@@ -46,7 +46,10 @@
                     </a>
                     <div class="dropdown-menu position-absolute p-0" aria-labelledby="userProfileDropdown">
                         <div class="dropdown-item p-1">
-                            
+                            <form action="{{ route("out") }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Log Out</button>
+                            </form>
                         </div>
                     </div>
                 </li>
