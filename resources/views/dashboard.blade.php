@@ -42,7 +42,7 @@
     <div class="page-header">
         <nav class="breadcrumb-one" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Presensi {{$today}}</a></li>
             </ol>
         </nav>
     </div>
@@ -51,8 +51,8 @@
             <table id="default-ordering" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Nama</th>
                         <th>NIS</th>
+                        <th>Status</th>
                         <th>Waktu Presensi Masuk</th>
                         <th>Waktu Presensi Keluar</th>
                         <th class="text-center dt-no-sorting">Status</th>
@@ -61,10 +61,10 @@
                 <tbody>
                     @foreach($value as $val)
                     <tr>
-                        <td>{{ $val["name"] }}</td>
-                        <td>{{ $val["id"] }}</td>
-                        <td>06:58:10</td>
-                        <td>15:00:01</td>
+                        <td>{{ $val["student_id"] }}</td>
+                        <td>{{ $val["status"] }}</td>
+                        <td>{{ $val["time_in"] }}</td>
+                        <td>{{ $val["time_out"] }}</td>
                         <td class="text-center"><button class="btn btn-primary">Hadir</button> </td>
                     </tr>
                     @endforeach

@@ -16,7 +16,4 @@ use App\Http\Controllers\FirebaseController;
 
 Route::get('/', [FirebaseController::class, 'retrieve']);
 Route::get("/dasboard", [FirebaseController::class, 'dashboard']);
-Route::get('/student', function () {
-    return view('student.index');
-});
 Route::get("/student", [FirebaseController::class, 'studentHandler']);
