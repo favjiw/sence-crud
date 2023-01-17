@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Database;
+use Illuminate\Routing\Redirector;
 use App\Models\Student;
 
 class FirebaseController extends Controller
@@ -13,6 +14,14 @@ class FirebaseController extends Controller
     public function __construct(Database $database)
     {
         $this->database = $database;
+    }
+
+    private function singularSelection($path, $child, $value) {
+        return $this->database
+            ->getReference("/".$path)
+            ->orderByChild($child)
+            ->equalTo($value)
+            ->getSnapshot()->getValue();
     }
 
     public function retrieve() 
@@ -63,5 +72,20 @@ class FirebaseController extends Controller
 
     public function login(){
         return view("login");
+    }
+
+    public function loginHandler(Request $request) {
+        $arr = $this->database
+            ->getReference("/teacher")
+            ->orderByChild("id")
+            ->equalTo((int) $request->username)
+            ->getSnapshot()->getValue();
+
+        if(count($arr) == 1) {
+            $key = array_keys($arr)[0];
+            if($request->password === "12345678") {
+                return redirect();
+            }
+        }
     }
 }
