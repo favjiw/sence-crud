@@ -30,7 +30,7 @@ class FirebaseController extends Controller
     public function retrieve() 
     {
         $today = date("Y-m-d");
-        // $today = "2022-11-30";
+        $today = "2022";
 
         $path = "/presence";
         $reference =  $this->database->getReference($path);

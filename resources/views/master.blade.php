@@ -122,6 +122,9 @@
     <script src="{{ URL::asset('plugins/blockui/jquery.blockUI.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.js') }}"></script>
     
+    <!-- FONT AWESOME -->
+    <script src="https://kit.fontawesome.com/ff535c21a2.js" crossorigin="anonymous"></script>
+    
     <script>
         $(document).ready(function() {
             App.init();

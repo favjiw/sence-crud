@@ -64,7 +64,17 @@
                         <td>{{ $val["status"] }}</td>
                         <td>{{ $val["time_in"] }}</td>
                         <td>{{ $val["time_out"] }}</td>
-                        <td class="text-center"><button class="btn btn-primary">Hadir</button> </td>
+                        <td class="text-center"><span>
+                            @if($val["status"] == 3 || $val["status"] == 5)
+                            Sakit
+                            @elseif($val["status"] == 4 || $val["status"] == 6)
+                            Izin
+                            @elseif($val["status"] == 7 || $val["status"] == 8)
+                            Terlambat
+                            @else
+                            Hadir
+                            @endif     
+                        </span> </td>
                     </tr>
                     @endforeach
                 </tbody>
