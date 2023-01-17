@@ -24,3 +24,7 @@ Route::get('/dashboard', function () {
 Route::get('/student', function () {
     return view('student.index');
 });
+
+Route::get('/student/detail', function () {
+    return view('student.detail');
+});

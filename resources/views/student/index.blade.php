@@ -7,6 +7,7 @@
 @section('customcss')
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/table/datatable/datatables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/table/datatable/dt-global_style.css') }}">
+    <script src="https://kit.fontawesome.com/2b7eddacef.js" crossorigin="anonymous"></script>
 @endsection
 
 @section('customjs')
@@ -83,7 +84,9 @@
                             <td>XII RPL 1</td>
                             <td>
                                 <div class="row">
-                                    <i class="bi bi-eye"></i>
+                                    <a href="{{ URL('/student/detail') }}"><i class="fa-regular fa-eye"></i></a>
+                                    <i class="fa-solid fa-user-pen"></i>
+                                    <i class="fa-regular fa-trash-xmark"></i>                                
                                 </div>
                             </td>
                         </tr>
