@@ -60,4 +60,8 @@ class FirebaseController extends Controller
             "class" => $classes
         ]);
     }
+
+    public function login(){
+        return view("login");
+    }
 }
