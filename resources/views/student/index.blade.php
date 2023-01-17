@@ -54,42 +54,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($value as $val)
                         <tr>
-                            <td>Muhammad Favian Jiwani</td>
-                            <td>2021118620</td>
-                            <td>XII RPL 1</td>
+                            <td>{{ $val["name"] }}</td>
+                            <td>{{ $val["id"] }}</td>
+                            <td>{{ $val["class_id"] }}</td>
                             <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></td>
-                        </tr>
-                        <tr>
-                            <td>Muhammad Favian Jiwani</td>
-                            <td>2021118620</td>
-                            <td>XII RPL 1</td>
-                            <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></td>
-                        </tr>
-                        <tr>
-                            <td>Muhammad Favian Jiwani</td>
-                            <td>2021118620</td>
-                            <td>XII RPL 1</td>
-                            <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></td>
-                        </tr>
-                        <tr>
-                            <td>Muhammad Favian Jiwani</td>
-                            <td>2021118620</td>
-                            <td>XII RPL 1</td>
-                            <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></td>
-                        </tr>
-                        <tr>
-                            <td>Muhammad Favian Jiwani</td>
-                            <td>2021118620</td>
-                            <td>XII RPL 1</td>
-                            <td>
-                                <div class="row">
-                                    <a href="{{ URL('/student/detail') }}"><i class="fa-regular fa-eye"></i></a>
-                                    <i class="fa-solid fa-user-pen"></i>
-                                    <i class="fa-regular fa-trash-xmark"></i>                                
-                                </div>
-                            </td>
-                        </tr>
+                        </tr> 
+                        @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
