@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Database;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Student;
 
 class FirebaseController extends Controller
@@ -75,16 +77,17 @@ class FirebaseController extends Controller
     }
 
     public function loginHandler(Request $request) {
-        $arr = $this->database
+        $user = $this->database
             ->getReference("/teacher")
             ->orderByChild("id")
             ->equalTo((int) $request->username)
             ->getSnapshot()->getValue();
 
-        if(count($arr) == 1) {
-            $key = array_keys($arr)[0];
-            if($request->password === "12345678") {
-                return redirect();
+        if(count($user) == 1) {
+            $key = array_keys($user)[0];
+            if(hash('sha256', $request->password) === $user[$key]["password"]) {
+                $request->session()->put('authenticated', true);
+                return redirect("/");
             }
         }
     }

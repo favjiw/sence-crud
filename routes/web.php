@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FirebaseController;
+use App\Http\Middleware\CustomAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,25 +16,12 @@ use App\Http\Controllers\FirebaseController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/', [FirebaseController::class, 'retrieve']);
-Route::get("/dashboard", [FirebaseController::class, 'retrieve'])->name("dashboard");
-Route::get("/student", [FirebaseController::class, 'studentHandler']);
-
 Route::get("/login", [FirebaseController::class, "login"])->name("login");
 Route::post("/login", [FirebaseController::class, "loginHandler"])->name("login.store");
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::group(['middleware' => "customauth"], function () {
+    Route::get('/', [FirebaseController::class, 'retrieve'])->name("dashboard");
+    Route::get("/student", [FirebaseController::class, 'studentHandler']);
 });
 
 require __DIR__.'/auth.php';
