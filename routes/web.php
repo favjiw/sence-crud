@@ -27,6 +27,7 @@ Route::group(['middleware' => "customauth"], function () {
     Route::prefix("/presence")->group(function() {
         Route::get("/create", [FirebaseController::class, "presenceCreate"])->name("presence.create");
         Route::get("/{uid}", [FirebaseController::class, "presenceDetail"])->name("presence.detail");
+        Route::post("/{uid}/update", [FirebaseController::class, "presenceUpdate"])->name("presence.update");
     });
 
     Route::post("/out", [FirebaseController::class, 'out'])->name("out");

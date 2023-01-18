@@ -45,9 +45,10 @@
             </ol>
         </nav>
     </div>
-    <div class="row layout-top-spacing">
+    <div class="row layout-top-spacing" style="transform: scale(0.9)">
         <div class="widget-content widget-content-area br-6" style="width: 100%;">
-            <form action="" class="p-5">
+            <form action="{{ route('presence.update', $record["uid"]) }}" class="p-5" method="POST">
+                @csrf
                 <h3 class="ml-3">{{$record["uid"]}}</h3>
                 <p class="ml-3">Student ID</p>
                 <input type="text" name="student_id" id="" class="form-control m-3" value="{{$record["student_id"]}}" placeholder="student_id">

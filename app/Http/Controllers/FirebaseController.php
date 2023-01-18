@@ -111,4 +111,20 @@ class FirebaseController extends Controller
             "record" => $record
         ]);
     }
+
+    public function presenceUpdate(Request $request, $uid) {
+        $columns = ["student_id", "status", "time_in", "time_out"];
+        $temp = [];
+
+        foreach($columns as $col) {$temp[$col] = $request[$col];}
+
+        $this->database->getReference("/presence/".$uid)->set([
+            "status" => $request->status,
+            "time_in" => $request->time_in,
+            "time_out" => $request->time_out,
+            "student_id" => $request->student_id,
+        ]);
+
+        return redirect("/")->with("message", $uid." updated");
+    }
 }
