@@ -47,7 +47,7 @@
     </div>
     <div class="row layout-top-spacing">
         <div class="widget-content widget-content-area br-6">
-            ...
+            
         </div>
     </div>
     @endsection

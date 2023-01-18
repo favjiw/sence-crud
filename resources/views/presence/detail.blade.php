@@ -46,12 +46,20 @@
         </nav>
     </div>
     <div class="row layout-top-spacing">
-        <div class="widget-content widget-content-area br-6">
-            <code>
-                @foreach($record as $rec)
-                    {{$rec}}
-                @endforeach
-            </code>
+        <div class="widget-content widget-content-area br-6" style="width: 100%;">
+            <form action="" class="p-5">
+                <h3 class="ml-3">{{$record["uid"]}}</h3>
+                <p class="ml-3">Student ID</p>
+                <input type="text" name="student_id" id="" class="form-control m-3" value="{{$record["student_id"]}}" placeholder="student_id">
+                <p class="ml-3">Status</p>
+                <input type="number" name="status" id="" class="form-control m-3" value="{{$record["status"]}}" min=1 max=8 placeholder="status">
+                <p class="ml-3">Time In</p>
+                <input type="datetime" name="time_in" id="" class="form-control m-3" value="{{$record["time_in"]}}" placeholder="time_in">
+                <p class="ml-3">Time Out</p>
+                <input type="datetime" name="time_out" id="" class="form-control m-3" value="{{$record["time_out"]}}" placeholder="time_out">
+
+                <button class="btn btn-outline-dark ml-3 mt-3"> <i class="fas fa-save mr-2"></i> Simpan Perubahan</button>
+            </form>
         </div>
     </div>
 @endsection
