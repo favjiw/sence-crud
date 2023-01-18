@@ -36,25 +36,13 @@ class FirebaseController extends Controller
     public function retrieve() 
     {
         $today = date("Y-m-d");
-        $today = "2022";
-
         $path = "/presence";
         $reference =  $this->database->getReference($path);
         $snapshot = $reference->getSnapshot();
         $value = $snapshot->getValue();
 
-        $keys = array_keys($value);
-        $result = [];
-
-        for($i = 0; $i < count($keys); $i ++) {
-            $val = $value[$keys[$i]];
-            if( str_contains($val["time_in"], $today) ) {
-                $result[$keys[$i]] = $val;
-            }
-        }
-
         return view("dashboard", [
-            "value" => $result,
+            "value" => $value,
             "today" => $today
         ]);
     }

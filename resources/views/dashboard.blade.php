@@ -80,7 +80,6 @@
                     </tr>
                     @endforeach
                 </tbody>
-
             </table>
         </div>
             <div id="chartRadial" class="col-xl-4 layout-spacing">
