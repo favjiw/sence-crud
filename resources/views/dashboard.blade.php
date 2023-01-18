@@ -41,7 +41,7 @@
     <div class="page-header">
         <nav class="breadcrumb-one" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Presensi {{$today}}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">{{$today}}</a></li>
             </ol>
         </nav>
     </div>
@@ -54,17 +54,14 @@
                         <th>Status</th>
                         <th>Waktu Presensi Masuk</th>
                         <th>Waktu Presensi Keluar</th>
-                        <th class="text-center dt-no-sorting">Status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($value as $val)
+                    @foreach($value as $key => $val)
                     <tr>
                         <td>{{ $val["student_id"] }}</td>
-                        <td>{{ $val["status"] }}</td>
-                        <td>{{ $val["time_in"] }}</td>
-                        <td>{{ $val["time_out"] }}</td>
-                        <td class="text-center"><span>
+                        <td><span>
                             @if($val["status"] == 3 || $val["status"] == 5)
                             Sakit
                             @elseif($val["status"] == 4 || $val["status"] == 6)
@@ -75,6 +72,11 @@
                             Hadir
                             @endif     
                         </span> </td>
+                        <td>{{ $val["time_in"] }}</td>
+                        <td>{{ $val["time_out"] }}</td>
+                        <td>
+                            <a href="{{url('presence/'.$key)}}" class="btn btn-outline-dark"><i class="fas fa-eye"></i></a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

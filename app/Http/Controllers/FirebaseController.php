@@ -27,6 +27,12 @@ class FirebaseController extends Controller
             ->getSnapshot()->getValue();
     }
 
+    private function uidSelection($path, $uid) {
+        return $this->database
+            ->getReference("/".$path."/".$uid)
+            ->getValue();
+    } 
+
     public function retrieve() 
     {
         $today = date("Y-m-d");
@@ -93,4 +99,16 @@ class FirebaseController extends Controller
         session()->flush();
         return redirect("/login");
     } 
+
+    public function presenceCreate() {
+        return view("presence.create");
+    }
+
+    public function presenceDetail($uid) {
+        $record = $this->uidSelection("presence", $uid);
+        $record["uid"] = $uid;
+        return view("presence.detail", [
+            "record" => $record
+        ]);
+    }
 }

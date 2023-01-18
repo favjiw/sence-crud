@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FirebaseController;
 use App\Http\Middleware\CustomAuth;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,11 @@ Route::post("/login", [FirebaseController::class, "loginHandler"])->name("login.
 Route::group(['middleware' => "customauth"], function () {
     Route::get('/', [FirebaseController::class, 'retrieve'])->name("dashboard");
     Route::get("/student", [FirebaseController::class, 'studentHandler']);
+    
+    Route::prefix("/presence")->group(function() {
+        Route::get("/create", [FirebaseController::class, "presenceCreate"])->name("presence.create");
+        Route::get("/{uid}", [FirebaseController::class, "presenceDetail"])->name("presence.detail");
+    });
 
     Route::post("/out", [FirebaseController::class, 'out'])->name("out");
 });
