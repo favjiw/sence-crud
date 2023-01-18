@@ -37,6 +37,11 @@
 @endsection
 
 @section('main')
+<div class="d-none">
+    <p id="hadir">{{$data["hadir"]}}</p>
+    <p id="sakit">{{$data["sakit"]}}</p>
+    <p id="izin">{{$data["izin"]}}</p>
+</div>
 <div class="layout-px-spacing">
     <div class="page-header">
         <nav class="breadcrumb-one" aria-label="breadcrumb">

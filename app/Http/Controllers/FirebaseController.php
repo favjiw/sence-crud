@@ -41,9 +41,38 @@ class FirebaseController extends Controller
         $snapshot = $reference->getSnapshot();
         $value = $snapshot->getValue();
 
+        $data = [
+            "hadir" => 0,
+            "izin" => 0,
+            "sakit" => 0
+        ];
+
+        $onStatus = [
+            "hadir" => [1,2,7,8],
+            "sakit" => [3,5],
+            "izin" => [4,6]
+        ];
+
+        foreach($onStatus as $key => $val) {
+            if($key == "hadir") {
+                foreach($val as $status) {
+                    $data["hadir"] += count(array_keys($this->singularSelection("presence", "status", $status)));
+                }
+            }else if($key == "sakit") {
+                foreach($val as $status) {
+                    $data["sakit"] += count(array_keys($this->singularSelection("presence", "status", $status)));
+                }
+            }else if($key == "izin") {
+                foreach($val as $status) {
+                    $data["izin"] += count(array_keys($this->singularSelection("presence", "status", $status)));
+                }
+            }
+        }
+
         return view("dashboard", [
             "value" => $value,
-            "today" => $today
+            "today" => $today,
+            "data" => $data,
         ]);
     }
 

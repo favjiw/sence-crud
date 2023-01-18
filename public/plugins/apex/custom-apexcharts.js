@@ -329,7 +329,11 @@ var donut = new ApexCharts(
 );
 
 donut.render();
-
+var totalDataAvailable = [
+    parseInt(document.querySelector("#hadir").innerHTML), 
+    parseInt(document.querySelector("#izin").innerHTML), 
+    parseInt(document.querySelector("#sakit").innerHTML)
+];
 
 // Radial Chart
 
@@ -356,14 +360,20 @@ var radialChart = {
                     label: 'Total',
                     formatter: function (w) {
                         // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                        return 249
+                        return totalDataAvailable.reduce((a, b) => a + b, 0);
                     }
                 }
             }
         }
     },
-    series: [44, 55, 67, 83],
-    labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],    
+    series: [
+        parseInt(document.querySelector("#hadir").innerHTML), 
+        parseInt(document.querySelector("#izin").innerHTML), 
+        parseInt(document.querySelector("#sakit").innerHTML)
+    ].map(each => {
+        return (each*100 / totalDataAvailable.reduce((a, b) => a + b, 0)).toFixed(2);
+    }),
+    labels: ['Hadir', 'Izin', 'Sakit'],    
 }
 
 var chart = new ApexCharts(
