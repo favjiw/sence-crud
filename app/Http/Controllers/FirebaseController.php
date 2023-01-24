@@ -168,6 +168,12 @@ class FirebaseController extends Controller
             "record" => $record
         ]);
     }
+    
+    public function studentDelete($uid) {
+        $this->database->getReference("/users/".$uid)->remove();
+
+        return redirect(route("student.index"))->with("message", "Data removed");
+    }
 
     public function teacherHandler() {
         return view("teacher.index");

@@ -31,9 +31,6 @@
 @endsection
 
 @section('main')
-@if(session("message"))
-<p>{{session("message")}}</p>
-@endif
 <div class="layout-px-spacing">
     <div class="page-header">
         <nav class="breadcrumb-one" aria-label="breadcrumb">
@@ -62,9 +59,12 @@
                             <td>{{ $val["name"] }}</td>
                             <td>{{ $val["id"] }}</td>
                             <td>{{ $class[$val["class_id"]] }}</td>
-                            <td>
+                            <td class="d-flex">
                                 <a href="{{url('student/'.$key)}}" class="btn btn-outline-dark"><i class="fas fa-eye"></i></a>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                <form action="{{ route("student.delete", $key) }}" method="POST">
+                                    @csrf
+                                    <button class="btn btn-outline-danger ml-2"><i class="fas fa-trash"></i></button>
+                                </form>
                             </td>
                         </tr> 
                         @endforeach

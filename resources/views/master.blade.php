@@ -133,6 +133,9 @@
         {{-- main section from other page --}}
         <div class="main-container" id="container">
             <div id="content" class="main-content">
+                @if(session("message"))
+                    <p class="btn btn-outline-warning mt-2">{{session("message")}}</p>
+                @endif
                 @yield('main')
             </div>
         </div>

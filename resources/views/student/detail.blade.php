@@ -61,8 +61,13 @@
                 <p class="ml-3">Telp</p>
                 <input type="text" name="telp" id="" class="form-control m-3" value="{{$record["telp"]}}" placeholder="Telp here">
                 
-                <button class="btn btn-outline-success ml-3 mt-3"> <i class="fas fa-save mr-2"></i> Tambahkan </button>
+                <button class="btn btn-outline-dark ml-3 mt-3"> <i class="fas fa-save mr-2"></i> Simpan Perubahan </button>
+            </form>
+            <form action="{{ route("student.delete", $record["uid"]) }}" class="p-5 ml-3" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger">Hapus</button>
             </form>
         </div>
+        
     </div>
 @endsection
