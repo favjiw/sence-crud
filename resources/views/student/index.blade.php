@@ -31,6 +31,9 @@
 @endsection
 
 @section('main')
+@if(session("message"))
+<p>{{session("message")}}</p>
+@endif
 <div class="layout-px-spacing">
     <div class="page-header">
         <nav class="breadcrumb-one" aria-label="breadcrumb">
@@ -38,7 +41,7 @@
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Student</a></li>
             </ol>
         </nav>
-        <button class="btn btn-primary">Tambah siswa</button>
+        <a href="{{route("students.create")}}" class="btn btn-primary">Tambah siswa</a>
     </div>
     <div class="row layout-top-spacing" id="cancel-row">
                 

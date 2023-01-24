@@ -47,19 +47,21 @@
     </div>
     <div class="row layout-top-spacing" style="transform: scale(0.9)">
         <div class="widget-content widget-content-area br-6" style="width: 100%;">
-            <form action="" class="p-5" method="POST">
+            <form action="{{ route("students.insert") }}" class="p-5" method="POST">
                 @csrf
                 <h3 class="ml-3"></h3>
                 <p class="ml-3">Student ID</p>
-                <input type="text" name="student_id" id="" class="form-control m-3" value="" placeholder="student_id">
-                <p class="ml-3">Class ID</p>
-                <input type="number" name="status" id="" class="form-control m-3" value="" min=1 max=8 placeholder="status">
-                <p class="ml-3">Email</p>
-                <input type="datetime" name="time_in" id="" class="form-control m-3" value="" placeholder="time_in">
+                <input type="text" name="student_id" id="" class="form-control m-3" value="" placeholder="Student ID here">
                 <p class="ml-3">Name</p>
-                <input type="datetime" name="time_out" id="" class="form-control m-3" value="" placeholder="time_out">
-
-                <button class="btn btn-outline-dark ml-3 mt-3"> <i class="fas fa-save mr-2"></i> Simpan Perubahan</button>
+                <input type="text" name="name" id="" class="form-control m-3" value="" placeholder="Name here">
+                <p class="ml-3">Class ID</p>
+                <input type="number" name="class_id" id="" class="form-control m-3" value="" min=1 max=8 placeholder="Class ID here">
+                <p class="ml-3">Email</p>
+                <input type="email" name="email" id="" class="form-control m-3" value="" placeholder="Email here">
+                <p class="ml-3">Telp</p>
+                <input type="text" name="telp" id="" class="form-control m-3" value="" placeholder="Telp here">
+                
+                <button class="btn btn-outline-success ml-3 mt-3"> <i class="fas fa-save mr-2"></i> Tambahkan </button>
             </form>
         </div>
     </div>

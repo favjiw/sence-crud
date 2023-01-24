@@ -144,4 +144,27 @@ class FirebaseController extends Controller
     public function studentsCreate() {
         return view("student.create");
     }
+
+    public function studentsInsert(Request $request) {
+        // Validate existing class_id
+
+        $this->database->getReference("/users")->push()->set([
+            "id" => $request->student_id,
+            "name" => $request->name,
+            "class_id" => $request->class_id,
+            "email" => $request->email,
+            "telp" => $request->telp,
+            "password" => hash('sha256', "12345678")
+        ]);
+
+        return redirect(route("students.index"))->with("message", "New data created.");
+    }
+
+    public function teacherHandler() {
+        return view("teacher.index");
+    }
+
+    public function teacherCreate() {
+        return view("teacher.create");
+    }
 }
