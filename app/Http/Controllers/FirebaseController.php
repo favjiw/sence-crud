@@ -245,12 +245,66 @@ class FirebaseController extends Controller
             "password" => hash('sha256', "12345678")
         ]);
 
-        return redirect(route("teacher.index"))->with("message", "New data created.");
+        return redirect(route("teacher.index"))->with("message", "New data updated.");
     }
     
     public function teacherDelete($uid) {
         $this->database->getReference("/teacher/".$uid)->remove();
 
         return redirect(route("teacher.index"))->with("message", "Data removed");
+    }
+
+
+    public function classHandler() {
+        $path = "/class";
+        $reference =  $this->database->getReference($path);
+        $snapshot = $reference->getSnapshot();
+        $value = $snapshot->getValue();
+
+        return view("class.index", [
+            "value" => $value
+        ]);
+    }
+
+    public function classCreate() {
+        return view("class.create");
+    }
+
+    public function classInsert(Request $request) {
+        // Validate existing class_id
+
+        $this->database->getReference("/class")->push()->set([
+            "field" => $request->field,
+            "grade" => (int) $request->grade,
+            "id" => (int) $request->id,
+            "name" => $request->name, 
+        ]);
+
+        return redirect(route("class.index"))->with("message", "New data created.");
+    }
+
+    public function classDetail($uid) {
+        $record = $this->uidSelection("class", $uid);
+        $record["uid"] = $uid;
+        return view("class.detail", [
+            "record" => $record
+        ]);
+    }
+
+    public function classUpdate(Request $request, $uid) {
+        $this->database->getReference("/class/".$uid)->set([
+            "field" => $request->field,
+            "grade" => (int) $request->grade,
+            "id" => (int) $request->id,
+            "name" => $request->name, 
+        ]);
+
+        return redirect(route("class.index"))->with("message", "New data updated.");
+    }
+    
+    public function classDelete($uid) {
+        $this->database->getReference("/class/".$uid)->remove();
+
+        return redirect(route("class.index"))->with("message", "Data removed");
     }
 }

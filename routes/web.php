@@ -51,6 +51,17 @@ Route::group(['middleware' => "customauth"], function () {
         Route::post("/{uid}/delete", [FirebaseController::class, "teacherDelete"])->name("teacher.delete");
     });
 
+    Route::prefix("/class")->group(function() {
+        Route::get("/", [FirebaseController::class, "classHandler"])->name("class.index");
+        Route::get("/create", [FirebaseController::class, "classCreate"])->name("class.create");
+        Route::post("/insert", [FirebaseController::class, "classInsert"])->name("class.insert");
+
+        Route::get("/{uid}", [FirebaseController::class, "classDetail"])->name("class.detail");
+        Route::post("/{uid}/update", [FirebaseController::class, "classUpdate"])->name("class.update");
+
+        Route::post("/{uid}/delete", [FirebaseController::class, "classDelete"])->name("class.delete");
+    });
+
     Route::post("/out", [FirebaseController::class, 'out'])->name("out");
 });
 
