@@ -30,9 +30,11 @@ Route::group(['middleware' => "customauth"], function () {
     });
 
     Route::prefix("/student")->group(function() {
-        Route::get("/", [FirebaseController::class, 'studentHandler'])->name("students.index");
-        Route::get("/create", [FirebaseController::class, "studentsCreate"])->name("students.create");
-        Route::post("/insert", [FirebaseController::class, "studentsInsert"])->name("students.insert");
+        Route::get("/", [FirebaseController::class, 'studentHandler'])->name("student.index");
+        Route::get("/create", [FirebaseController::class, "studentCreate"])->name("student.create");
+        Route::post("/insert", [FirebaseController::class, "studentInsert"])->name("student.insert");
+
+        Route::get("/{uid}", [FirebaseController::class, "studentDetail"])->name("student.detail");
     });
 
     Route::prefix("/teacher")->group(function() {

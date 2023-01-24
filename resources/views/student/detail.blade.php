@@ -1,18 +1,22 @@
 @extends('master')
-
 @section('title')
-    Student
+
 @endsection
 
 @section('customcss')
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/table/datatable/datatables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/table/datatable/dt-global_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/forms/theme-checkbox-radio.css') }}">
+    <link href="{{ URL::asset('assets/css/apps/invoice-list.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('customjs')
+<script src={{ URL::asset('assets/js/scrollspyNav.js')}}></script>
+<script src={{ URL::asset('plugins/apex/apexcharts.min.js')}}></script>
+<script src={{ URL::asset('plugins/apex/custom-apexcharts.js')}}></script>
 <script src={{ URL::asset('plugins/table/datatable/datatables.js')}}></script>
-<script>
-    $('#zero-config').DataTable({
+<script>        
+    $('#default-ordering').DataTable( {
         "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
     "<'table-responsive'tr>" +
     "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
@@ -23,64 +27,42 @@
             "sSearchPlaceholder": "Search...",
            "sLengthMenu": "Results :  _MENU_",
         },
+        "order": [[ 3, "desc" ]],
         "stripeClasses": [],
         "lengthMenu": [7, 10, 20, 50],
-        "pageLength": 7 
-    });
+        "pageLength": 7,
+        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
+    } );
 </script>
 @endsection
 
 @section('main')
-@if(session("message"))
-<p>{{session("message")}}</p>
-@endif
 <div class="layout-px-spacing">
     <div class="page-header">
         <nav class="breadcrumb-one" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Student</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">{{time()}}</a></li>
             </ol>
         </nav>
-        <a href="{{route("student.create")}}" class="btn btn-primary">Tambah siswa</a>
     </div>
-    <div class="row layout-top-spacing" id="cancel-row">
+    <div class="row layout-top-spacing" style="transform: scale(0.9)">
+        <div class="widget-content widget-content-area br-6" style="width: 100%;">
+            <form action="{{ route("student.insert") }}" class="p-5" method="POST">
+                @csrf
+                <h3 class="ml-3"></h3>
+                <p class="ml-3">Student ID</p>
+                <input type="text" name="student_id" id="" class="form-control m-3" value="{{$record["id"]}}" placeholder="Student ID here">
+                <p class="ml-3">Name</p>
+                <input type="text" name="name" id="" class="form-control m-3" value="{{$record["name"]}}" placeholder="Name here">
+                <p class="ml-3">Class ID</p>
+                <input type="number" name="class_id" id="" class="form-control m-3" value="{{$record["class_id"]}}" min=1 max=8 placeholder="Class ID here">
+                <p class="ml-3">Email</p>
+                <input type="email" name="email" id="" class="form-control m-3" value="{{$record["email"]}}" placeholder="Email here">
+                <p class="ml-3">Telp</p>
+                <input type="text" name="telp" id="" class="form-control m-3" value="{{$record["telp"]}}" placeholder="Telp here">
                 
-        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-            <div class="widget-content widget-content-area br-6">
-                <table id="zero-config" class="table dt-table-hover" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>NIS</th>
-                            <th>Kelas</th>
-                            <th class="no-content dt-no-sorting">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($value as $key => $val)
-                        <tr>
-                            <td>{{ $val["name"] }}</td>
-                            <td>{{ $val["id"] }}</td>
-                            <td>{{ $class[$val["class_id"]] }}</td>
-                            <td>
-                                <a href="{{url('student/'.$key)}}" class="btn btn-outline-dark"><i class="fas fa-eye"></i></a>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
-                            </td>
-                        </tr> 
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Nama</th>
-                            <th>NIS</th>
-                            <th>Kelas</th>
-                            <th></th>
-                        </tr>   
-                    </tfoot>
-                </table>
-            </div>
+                <button class="btn btn-outline-success ml-3 mt-3"> <i class="fas fa-save mr-2"></i> Tambahkan </button>
+            </form>
         </div>
-
     </div>
-</div>
 @endsection

@@ -83,6 +83,7 @@ class FirebaseController extends Controller
         $snapshot = $reference->getSnapshot();
         $value = $snapshot->getValue();
 
+        $keys = array_keys($value);
         $class = $this->database->getReference("/class")->getSnapshot()->getValue();
         $classes = array();
 
@@ -141,11 +142,11 @@ class FirebaseController extends Controller
         return redirect("/")->with("message", $uid." updated");
     }
 
-    public function studentsCreate() {
+    public function studentCreate() {
         return view("student.create");
     }
 
-    public function studentsInsert(Request $request) {
+    public function studentInsert(Request $request) {
         // Validate existing class_id
 
         $this->database->getReference("/users")->push()->set([
@@ -157,7 +158,15 @@ class FirebaseController extends Controller
             "password" => hash('sha256', "12345678")
         ]);
 
-        return redirect(route("students.index"))->with("message", "New data created.");
+        return redirect(route("student.index"))->with("message", "New data created.");
+    }
+
+    public function studentDetail($uid) {
+        $record = $this->uidSelection("users", $uid);
+        $record["uid"] = $uid;
+        return view("student.detail", [
+            "record" => $record
+        ]);
     }
 
     public function teacherHandler() {

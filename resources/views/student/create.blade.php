@@ -47,7 +47,7 @@
     </div>
     <div class="row layout-top-spacing" style="transform: scale(0.9)">
         <div class="widget-content widget-content-area br-6" style="width: 100%;">
-            <form action="{{ route("students.insert") }}" class="p-5" method="POST">
+            <form action="{{ route("student.insert") }}" class="p-5" method="POST">
                 @csrf
                 <h3 class="ml-3"></h3>
                 <p class="ml-3">Student ID</p>
