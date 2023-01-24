@@ -63,7 +63,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($value as $key => $val)
+`                    @foreach($value as $key => $val)
                     <tr>
                         <td>{{ $val["student_id"] }}</td>
                         <td><span>
@@ -90,7 +90,7 @@
             <div id="chartRadial" class="col-xl-4 layout-spacing">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">                                
-                        <h4>Presentase Kehadiran Siswa</h4>
+                        <h4>Presentase Kehadiran Siswa Keseluruhan</h4>
                     </div>
                     <div class="widget-content widget-content-area">
                         <div id="radial-chart" class=""></div>

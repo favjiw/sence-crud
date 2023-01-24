@@ -130,10 +130,6 @@ class FirebaseController extends Controller
     }
 
     public function presenceUpdate(Request $request, $uid) {
-        $columns = ["student_id", "status", "time_in", "time_out"];
-        $temp = [];
-
-        foreach($columns as $col) {$temp[$col] = $request[$col];}
 
         $this->database->getReference("/presence/".$uid)->set([
             "status" => $request->status,
@@ -143,5 +139,9 @@ class FirebaseController extends Controller
         ]);
 
         return redirect("/")->with("message", $uid." updated");
+    }
+
+    public function studentsCreate() {
+        return view("student.create");
     }
 }

@@ -22,12 +22,16 @@ Route::post("/login", [FirebaseController::class, "loginHandler"])->name("login.
 
 Route::group(['middleware' => "customauth"], function () {
     Route::get('/', [FirebaseController::class, 'retrieve'])->name("dashboard");
-    Route::get("/student", [FirebaseController::class, 'studentHandler']);
     
     Route::prefix("/presence")->group(function() {
         Route::get("/create", [FirebaseController::class, "presenceCreate"])->name("presence.create");
         Route::get("/{uid}", [FirebaseController::class, "presenceDetail"])->name("presence.detail");
         Route::post("/{uid}/update", [FirebaseController::class, "presenceUpdate"])->name("presence.update");
+    });
+
+    Route::prefix("/student")->group(function() {
+        Route::get("/", [FirebaseController::class, 'studentHandler'])->name("students.index");
+        Route::get("/create", [FirebaseController::class, "studentsCreate"])->name("students.create");
     });
 
     Route::post("/out", [FirebaseController::class, 'out'])->name("out");
