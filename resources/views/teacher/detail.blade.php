@@ -47,15 +47,15 @@
     </div>
     <div class="row layout-top-spacing" style="transform: scale(0.9)">
         <div class="widget-content widget-content-area br-6" style="width: 100%;">
-            <form action="{{ route("student.update", $record["uid"]) }}" class="p-5" method="POST">
+            <form action="{{ route("teacher.update", $record["uid"]) }}" class="p-5" method="POST">
                 @csrf
                 <h3 class="ml-3"></h3>
-                <p class="ml-3">Student ID</p>
-                <input type="text" name="student_id" id="" class="form-control m-3" value="{{$record["id"]}}" placeholder="Student ID here">
+                <p class="ml-3">Teacher ID</p>
+                <input type="text" name="student_id" id="" class="form-control m-3" value="{{$record["id"]}}" placeholder="ID here">
                 <p class="ml-3">Name</p>
                 <input type="text" name="name" id="" class="form-control m-3" value="{{$record["name"]}}" placeholder="Name here">
                 <p class="ml-3">Class ID</p>
-                <input type="number" name="class_id" id="" class="form-control m-3" value="{{$record["class_id"]}}" min=1 max=8 placeholder="Class ID here">
+                <input type="number" name="homeroom_class_id" id="" class="form-control m-3" value="{{$record["homeroom_class_id"]}}" min=1 max=8 placeholder="Class ID here">
                 <p class="ml-3">Email</p>
                 <input type="email" name="email" id="" class="form-control m-3" value="{{$record["email"]}}" placeholder="Email here">
                 <p class="ml-3">Telp</p>
@@ -63,7 +63,7 @@
                 
                 <button class="btn btn-outline-dark ml-3 mt-3"> <i class="fas fa-save mr-2"></i> Simpan Perubahan </button>
             </form>
-            <form action="{{ route("student.delete", $record["uid"]) }}" class="p-5 ml-3" method="POST">
+            <form action="{{ route("teacher.delete", $record["uid"]) }}" class="p-5 ml-3" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-danger">Hapus</button>
             </form>

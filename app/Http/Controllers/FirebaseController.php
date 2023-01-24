@@ -150,9 +150,9 @@ class FirebaseController extends Controller
         // Validate existing class_id
 
         $this->database->getReference("/users")->push()->set([
-            "id" => $request->student_id,
+            "id" => (int) $request->student_id,
             "name" => $request->name,
-            "class_id" => $request->class_id,
+            "class_id" => (int) $request->class_id,
             "email" => $request->email,
             "telp" => $request->telp,
             "password" => hash('sha256', "12345678")
@@ -168,6 +168,19 @@ class FirebaseController extends Controller
             "record" => $record
         ]);
     }
+
+    public function studentUpdate(Request $request, $uid) {
+        $this->database->getReference("/users/".$uid)->set([
+            "id" => (int) $request->student_id,
+            "name" => $request->name,
+            "class_id" => (int) $request->class_id,
+            "email" => $request->email,
+            "telp" => $request->telp,
+            "password" => hash('sha256', "12345678")
+        ]);
+
+        return redirect(route("student.index"))->with("message", "New data created.");
+    }
     
     public function studentDelete($uid) {
         $this->database->getReference("/users/".$uid)->remove();
@@ -176,10 +189,68 @@ class FirebaseController extends Controller
     }
 
     public function teacherHandler() {
-        return view("teacher.index");
+        $path = "/teacher";
+        $reference =  $this->database->getReference($path);
+        $snapshot = $reference->getSnapshot();
+        $value = $snapshot->getValue();
+
+        $keys = array_keys($value);
+        $class = $this->database->getReference("/class")->getSnapshot()->getValue();
+        $classes = array();
+
+        foreach($class as $c) {
+            $classes[$c["id"]] = $c["name"];
+        }
+
+        return view("teacher.index", [
+            "value" => $value,
+            "class" => $classes
+        ]);
     }
 
     public function teacherCreate() {
         return view("teacher.create");
+    }
+
+    public function teacherInsert(Request $request) {
+        // Validate existing class_id
+
+        $this->database->getReference("/teacher")->push()->set([
+            "id" => (int) $request->student_id,
+            "name" => $request->name,
+            "homeroom_class_id" => (int) $request->homeroom_class_id,
+            "email" => $request->email,
+            "telp" => $request->telp,
+            "password" => hash('sha256', "12345678")
+        ]);
+
+        return redirect(route("teacher.index"))->with("message", "New data created.");
+    }
+
+    public function teacherDetail($uid) {
+        $record = $this->uidSelection("teacher", $uid);
+        $record["uid"] = $uid;
+        return view("teacher.detail", [
+            "record" => $record
+        ]);
+    }
+
+    public function teacherUpdate(Request $request, $uid) {
+        $this->database->getReference("/teacher/".$uid)->set([
+            "id" => (int) $request->student_id,
+            "name" => $request->name,
+            "homeroom_class_id" => (int) $request->homeroom_class_id,
+            "email" => $request->email,
+            "telp" => $request->telp,
+            "password" => hash('sha256', "12345678")
+        ]);
+
+        return redirect(route("teacher.index"))->with("message", "New data created.");
+    }
+    
+    public function teacherDelete($uid) {
+        $this->database->getReference("/teacher/".$uid)->remove();
+
+        return redirect(route("teacher.index"))->with("message", "Data removed");
     }
 }

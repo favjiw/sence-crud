@@ -34,6 +34,7 @@ Route::group(['middleware' => "customauth"], function () {
         Route::get("/create", [FirebaseController::class, "studentCreate"])->name("student.create");
         Route::post("/insert", [FirebaseController::class, "studentInsert"])->name("student.insert");
 
+        Route::post("/{uid}/update", [FirebaseController::class, "studentUpdate"])->name("student.update");
         Route::get("/{uid}", [FirebaseController::class, "studentDetail"])->name("student.detail");
 
         Route::post("/{uid}/delete", [FirebaseController::class, "studentDelete"])->name("student.delete");
@@ -42,6 +43,12 @@ Route::group(['middleware' => "customauth"], function () {
     Route::prefix("/teacher")->group(function() {
         Route::get("/", [FirebaseController::class, "teacherHandler"])->name("teacher.index");
         Route::get("/create", [FirebaseController::class, "teacherCreate"])->name("teacher.create");
+        Route::post("/insert", [FirebaseController::class, "teacherInsert"])->name("teacher.insert");
+
+        Route::get("/{uid}", [FirebaseController::class, "teacherDetail"])->name("teacher.detail");
+        Route::post("/{uid}/update", [FirebaseController::class, "teacherUpdate"])->name("teacher.update");
+
+        Route::post("/{uid}/delete", [FirebaseController::class, "teacherDelete"])->name("teacher.delete");
     });
 
     Route::post("/out", [FirebaseController::class, 'out'])->name("out");
