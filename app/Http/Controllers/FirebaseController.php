@@ -49,8 +49,8 @@ class FirebaseController extends Controller
 
         $onStatus = [
             "hadir" => [1,2,7,8],
-            "sakit" => [3,5],
-            "izin" => [4,6]
+            "sakit" => [5],
+            "izin" => [6]
         ];
 
         foreach($onStatus as $key => $val) {
@@ -306,5 +306,15 @@ class FirebaseController extends Controller
         $this->database->getReference("/class/".$uid)->remove();
 
         return redirect(route("class.index"))->with("message", "Data removed");
+    }
+
+    public function pendingPresenceHandler() {
+        $data = $this->singularSelection("presence", "status", 3);
+        
+        foreach($this->singularSelection("presence", "status", 4) as $key => $val) {
+            $data[$key] = $val;
+        }
+
+        return $data;
     }
 }
