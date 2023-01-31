@@ -30,7 +30,7 @@ Route::group(['middleware' => "customauth"], function () {
         Route::get("/{uid}", [FirebaseController::class, "presenceDetail"])->name("presence.detail");
         Route::post("/{uid}/update", [FirebaseController::class, "presenceUpdate"])->name("presence.update");
 
-        
+        Route::post("/{uid}/approve", [FirebaseController::class, "presenceApprove"])->name("presence.approve");
     });
 
     Route::prefix("/student")->group(function() {

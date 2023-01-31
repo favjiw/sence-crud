@@ -315,6 +315,20 @@ class FirebaseController extends Controller
             $data[$key] = $val;
         }
 
-        return $data;
+        return view("presence.pending", [
+            "data" => $data
+        ]);
+    }
+
+    public function presenceApprove($uid) {
+        $old = $this->uidSelection("presence", $uid);
+        $this->database->getReference("/presence/".$uid)->set([
+            "status" => $old["status"] + 2,
+            "time_in" => $old["time_in"],
+            "time_out" => $old["time_out"],
+            "student_id" => $old["student_id"],
+        ]);
+
+        return redirect(route("presence.pending"))->with("message", "Approved");
     }
 }
