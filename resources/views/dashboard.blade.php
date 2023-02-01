@@ -52,7 +52,7 @@
     </div>
     <div class="row layout-top-spacing">
         <div class="widget-content widget-content-area br-6">
-            <a href="{{ route("presence.pending") }}" class="btn btn-primary m-3">Butuh persetujuan </a>
+            <a href="{{ route("presence.pending") }}" class="btn btn-primary m-2 ">Pending </a>
             <table id="default-ordering" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>

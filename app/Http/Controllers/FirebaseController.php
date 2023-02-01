@@ -36,10 +36,32 @@ class FirebaseController extends Controller
     public function retrieve() 
     {
         $today = date("Y-m-d");
+        
         $path = "/presence";
         $reference =  $this->database->getReference($path);
         $snapshot = $reference->getSnapshot();
         $value = $snapshot->getValue();
+
+        if(!Session::has("admin")) {
+            $homeroom_class_id = Session::get("authenticated")["homeroom_class_id"];
+            $homeroom_students = $this->singularSelection("users", "class_id", $homeroom_class_id);
+
+            $IDs = array();
+
+            // Selection
+            foreach($homeroom_students as $key => $val) {
+                array_push($IDs, $val["id"]);
+            }
+
+            $deletion_keys = array();
+            foreach($value as $key => $val) {
+                if(in_array($val["student_id"], $IDs)) {
+                    $deletion_keys[$key] = $value[$key];
+                }
+            }
+
+            $value = $deletion_keys;
+        }
 
         $data = [
             "hadir" => 0,
@@ -107,8 +129,22 @@ class FirebaseController extends Controller
         if(count($user) == 1) {
             $key = array_keys($user)[0];
             if(hash('sha256', $request->password) === $user[$key]["password"]) {
-                $request->session()->put('authenticated', true);
+                unset($user[$key]["password"]);
+                
+                $request->session()->put('authenticated', $user[$key]);
                 return redirect("/");
+            }
+        }else {
+            $user = $this->singularSelection("admin", "id", (int) $request->username);
+            if(count($user) == 1) {
+                $key = array_keys($user)[0];
+                if(hash('sha256', $request->password) === $user[$key]["password"]) {
+                    unset($user[$key]["password"]);
+
+                    $request->session()->put('authenticated', $user[$key]);
+                    $request->session()->put("admin", true);
+                    return redirect("/");
+                }
             }
         }
     }
