@@ -53,14 +53,14 @@ class FirebaseController extends Controller
                 array_push($IDs, $val["id"]);
             }
 
-            $deletion_keys = array();
+            $new = array();
             foreach($value as $key => $val) {
                 if(in_array($val["student_id"], $IDs)) {
-                    $deletion_keys[$key] = $value[$key];
+                    $new[$key] = $value[$key];
                 }
             }
 
-            $value = $deletion_keys;
+            $value = $new;
         }
 
         $data = [
@@ -104,6 +104,27 @@ class FirebaseController extends Controller
         $reference =  $this->database->getReference($path);
         $snapshot = $reference->getSnapshot();
         $value = $snapshot->getValue();
+
+        if(!Session::has("admin")) {
+            $homeroom_class_id = Session::get("authenticated")["homeroom_class_id"];
+            $homeroom_students = $this->singularSelection("users", "class_id", $homeroom_class_id);
+
+            $IDs = array();
+
+            // Selection
+            foreach($homeroom_students as $key => $val) {
+                array_push($IDs, $val["id"]);
+            }
+
+            $new = array();
+            foreach($value as $key => $val) {
+                if(in_array($val["student_id"], $IDs)) {
+                    $new[$key] = $value[$key];
+                }
+            }
+
+            $value = $new;
+        }
 
         $keys = array_keys($value);
         $class = $this->database->getReference("/class")->getSnapshot()->getValue();
