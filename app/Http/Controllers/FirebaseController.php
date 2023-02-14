@@ -218,7 +218,7 @@ class FirebaseController extends Controller
         return redirect(route("student.index"))->with("message", "New data created.");
     }
 
-    public function studentDetail($uid) {
+    public function studentEdit($uid) {
         $record = $this->uidSelection("users", $uid);
         $record["uid"] = $uid;
         return view("student.detail", [
@@ -237,6 +237,14 @@ class FirebaseController extends Controller
         ]);
 
         return redirect(route("student.index"))->with("message", "New data created.");
+    }
+
+    public function studentDetail($uid) {
+        $record = $this->uidSelection("users", $uid);
+        $record["uid"] = $uid;
+        return view("student.detail", [
+            "record" => $record
+        ]);
     }
     
     public function studentDelete($uid) {

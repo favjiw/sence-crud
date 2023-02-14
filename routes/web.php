@@ -41,6 +41,8 @@ Route::group(['middleware' => "customauth"], function () {
 
         Route::post("/{uid}/update", [FirebaseController::class, "studentUpdate"])->name("student.update");
         Route::get("/{uid}", [FirebaseController::class, "studentDetail"])->name("student.detail");
+        Route::get("/{uid}/edit", [FirebaseController::class, "studentEdit"])->name("student.edit");
+
 
         Route::post("/{uid}/delete", [FirebaseController::class, "studentDelete"])->name("student.delete");
     });

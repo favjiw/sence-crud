@@ -60,7 +60,8 @@
                             <td>{{ $val["id"] }}</td>
                             <td>{{ $class[$val["class_id"]] }}</td>
                             <td class="d-flex">
-                                <a href="{{url('student/'.$key)}}" class="btn btn-outline-dark"><i class="fas fa-eye"></i></a>
+                                <a href="{{url('student/'.$key)}}" class="btn btn-outline-dark mr-2"><i class="fas fa-edit"></i></a>
+                                <a href="{{url('student/detail'.$key)}}" class="btn btn-outline-dark"><i class="fas fa-eye"></i></a>
                                 <form action="{{ route("student.delete", $key) }}" method="POST">
                                     @csrf
                                     <button class="btn btn-outline-danger ml-2"><i class="fas fa-trash"></i></button>
