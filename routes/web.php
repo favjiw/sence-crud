@@ -43,7 +43,6 @@ Route::group(['middleware' => "customauth"], function () {
         Route::get("/{uid}", [FirebaseController::class, "studentDetail"])->name("student.detail");
         Route::get("/{uid}/edit", [FirebaseController::class, "studentEdit"])->name("student.edit");
 
-
         Route::post("/{uid}/delete", [FirebaseController::class, "studentDelete"])->name("student.delete");
     });
 
