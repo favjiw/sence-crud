@@ -118,7 +118,7 @@ class FirebaseController extends Controller
 
             $new = array();
             foreach($value as $key => $val) {
-                if(in_array($val["student_id"], $IDs)) {
+                if(in_array($val["id"], $IDs)) {
                     $new[$key] = $value[$key];
                 }
             }
