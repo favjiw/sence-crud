@@ -24,7 +24,7 @@
     </div>
     <div class="row layout-top-spacing" id="cancel-row">
         <div class="widget-content widget-content-area br-4">
-            <img src="https://github.com/favjiw/student-faces/blob/main/MUHAMMAD%20FAVIAN%20JIWANI.jpg" alt="{{ $record["name"] }}" srcset="">
+            <img src="https://favjiw.github.io/student-faces/RHIZA.jpg" alt="{{ $record["name"] }}" srcset="">
             <div class="row">
                 <p>Nama :</p>
                 <p class="ml-2">  {{ $record["name"] }}</p>
