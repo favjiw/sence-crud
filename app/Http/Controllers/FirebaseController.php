@@ -220,10 +220,25 @@ class FirebaseController extends Controller
 
     public function studentDetail($uid) {
         $record = $this->uidSelection("users", $uid);
-        
+        $value = $this->singularSelection("presence", "student_id", $record["id"]);
+        $val = [
+            "hadir" => 0,
+            "sakit" => 0,
+            "izin" => 0
+        ];
+        foreach ($value as $k => $v) {
+            if ($v["status"] == 3 || $v["status"] == 5) {
+                $val["sakit"]++;
+            }else if ($v["status"] == 4 || $v["status"] == 6) {
+                $val["izin"]++;
+            }else {
+                $val["hadir"]++;
+            }
+        }
         return view("student.detail", [
-            "record" => $record
-        ]);
+            "record" => $record,
+            "value" => $val
+        ]);    
     }
 
     public function studentEdit($uid) {
