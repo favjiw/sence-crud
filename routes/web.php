@@ -32,6 +32,8 @@ Route::group(['middleware' => "customauth"], function () {
         Route::post("/{uid}/update", [FirebaseController::class, "presenceUpdate"])->name("presence.update");
 
         Route::post("/{uid}/approve", [FirebaseController::class, "presenceApprove"])->name("presence.approve");
+
+        Route::post("/{uid}/delete", [FirebaseController::class, "presenceDelete"])->name("presence.delete");
     });
 
     Route::prefix("/student")->group(function() {

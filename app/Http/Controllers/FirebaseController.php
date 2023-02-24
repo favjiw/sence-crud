@@ -199,6 +199,12 @@ class FirebaseController extends Controller
         return redirect("/")->with("message", $uid." updated");
     }
 
+    public function presenceDelete($uid) {
+        $this->database->getReference("/presence/".$uid)->remove();
+
+        return redirect(route("dashboard"))->with("message", "Data removed");
+    }
+
     public function studentCreate() {
         return view("student.create");
     }

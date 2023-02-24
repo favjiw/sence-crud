@@ -80,8 +80,15 @@
                         </span> </td>
                         <td>{{ $val["time_in"] }}</td>
                         <td>{{ $val["time_out"] }}</td>
-                        <td>
+                        <td class="d-flex">
                             <a href="{{url('presence/'.$key)}}" class="btn btn-outline-dark"><i class="fas fa-eye"></i></a>
+                            @if(null !== Session::get("admin"))
+                            <form action="{{ route("presence.delete", $key) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                            </form>
+                            @endif
+                            
                         </td>
                     </tr>
                     @endforeach
