@@ -190,7 +190,7 @@ class FirebaseController extends Controller
     public function presenceUpdate(Request $request, $uid) {
 
         $this->database->getReference("/presence/".$uid)->set([
-            "status" => $request->status,
+            "status" => (int) $request->status,
             "time_in" => $request->time_in,
             "time_out" => $request->time_out,
             "student_id" => $request->student_id,
